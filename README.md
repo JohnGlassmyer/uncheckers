@@ -32,10 +32,10 @@ lambda or functional interface instance declared to throw any `Exception`:
 This makes it easy to take advantage of Java's built-in MIDI support without
 having to write mountains of boilerplate to assuage the fears of API methods:
 
-	range(0, 16)
-			.mapToObj(uncheckIntFunction(c -> Arrays.asList(
-					new ShortMessage(ShortMessage.CONTROL_CHANGE | c, ALL_SOUND_OFF, 0),
-					new ShortMessage(ShortMessage.CONTROL_CHANGE | c, RESET_ALL_CONTROLLERS, 0))))
+    range(0, 16)
+            .mapToObj(uncheckIntFunction(c -> Arrays.asList(
+                    new ShortMessage(ShortMessage.CONTROL_CHANGE | c, ALL_SOUND_OFF, 0),
+                    new ShortMessage(ShortMessage.CONTROL_CHANGE | c, RESET_ALL_CONTROLLERS, 0))))
 
 ### callUnchecked example
 
