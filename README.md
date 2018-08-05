@@ -41,8 +41,9 @@ Currently the project generates two classes:
 * `Uncheckers`, which unchecks otherwise functional types throwing `Exception`
 by rethrowing in `RuntimeException`
 
-Each class has an interface/method pair corresponding to each of the 43
-functional interface types in `java.util.function`.
+Each class defines an interface/method pair corresponding to `Runnable`,
+`Comparator`, and each of the 43 functional interface types of
+`java.util.function`.
 
 The `Generator` class could be used to generate methods to handle other
 exception types and/or other functional types.
