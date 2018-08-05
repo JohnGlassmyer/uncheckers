@@ -132,10 +132,8 @@ class Generator {
 			TypeToken<?> typeToken = TypeToken.of(samType);
 
 			List<Method> methods = Arrays.asList(samType.getMethods()).stream()
-					.filter(m -> {
-						int mod = m.getModifiers();
-						return Modifier.isPublic(mod) && Modifier.isAbstract(mod);
-					})
+					.filter(m -> Modifier.isAbstract(m.getModifiers()))
+					.filter(m -> !isMethodOfObject(m))
 					.collect(Collectors.toList());
 			if (methods.size() != 1) {
 				throw new RuntimeException(String.format(
@@ -262,6 +260,17 @@ class Generator {
 			// you got me this time..
 			throw new RuntimeException(e);
 		}
+	}
+
+	private static boolean isMethodOfObject(Method m) {
+		for (Method objectMethod : Object.class.getDeclaredMethods()) {
+			if (m.getName().equals(objectMethod.getName())
+					&& Arrays.equals(m.getParameterTypes(), objectMethod.getParameterTypes())) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private static boolean isCheckedException(Class<?> clazz) {
