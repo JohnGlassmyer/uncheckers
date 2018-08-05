@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,8 +33,7 @@ class Generator {
 			String checkedInterfaceNameSuffix,
 			String uncheckerMethodNamePrefix,
 			String uncheckerMethodNameSuffix) {
-		if (Exception.class.isAssignableFrom(uncheckedExceptionClass)
-				&& !RuntimeException.class.isAssignableFrom(uncheckedExceptionClass)) {
+		if (isCheckedException(uncheckedExceptionClass)) {
 			throw new IllegalArgumentException(String.format(
 					"%s is a checked exception type", uncheckedExceptionClass.getName()));
 		}
@@ -147,6 +147,18 @@ class Generator {
 
 			Method method = methods.get(0);
 
+			for (Type genericExceptionType : method.getGenericExceptionTypes()) {
+				Class<?> rawExceptionType = typeToken
+						.resolveType(genericExceptionType).getRawType();
+				if (isCheckedException(rawExceptionType)) {
+					throw new IllegalArgumentException(String.format(
+							"SAM method %s.%s throws checked exception %s",
+							samType.getName(),
+							method.getName(),
+							rawExceptionType.getName()));
+				}
+			}
+
 			TypeToken<?> methodReturnType = typeToken.resolveType(method.getGenericReturnType());
 			List<TypeToken<?>> methodParameterTypes =
 					Arrays.asList(method.getGenericParameterTypes()).stream()
@@ -250,6 +262,11 @@ class Generator {
 			// you got me this time..
 			throw new RuntimeException(e);
 		}
+	}
+
+	private static boolean isCheckedException(Class<?> clazz) {
+		return Exception.class.isAssignableFrom(clazz)
+				&& !RuntimeException.class.isAssignableFrom(clazz);
 	}
 
 	private static String paramNameForTypeName(String typeName) {
