@@ -25,7 +25,7 @@ public class GenerateUncheckers {
 				name -> String.format("Checked%s", name);
 
 		Function<String, String> samTypeNameToUncheckMethodName =
-				name -> String.format("unchecked%s", name);
+				name -> String.format("uncheck%s", name);
 
 		Function<String, String> samTypeNameToCallUncheckedMethodName =
 				name -> String.format("callUnchecked%s", name);
