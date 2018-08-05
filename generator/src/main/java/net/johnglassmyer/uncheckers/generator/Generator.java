@@ -190,6 +190,7 @@ class Generator {
 
 			printStream.format(
 					"%s"
+							+ "\n\t@FunctionalInterface"
 							+ "\n\tpublic interface %s {"
 							+ "\n\t\tpublic %s %s(%s) throws %s;"
 							+ "\n\t}",
