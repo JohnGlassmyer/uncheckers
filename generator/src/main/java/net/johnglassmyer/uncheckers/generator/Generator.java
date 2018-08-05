@@ -29,7 +29,7 @@ class Generator {
 			String uncheckersPackageName,
 			String uncheckersEnclosingClassName,
 			String checkedInterfaceNamePrefix,
-			String checkedIntefaceNameSuffix,
+			String checkedInterfaceNameSuffix,
 			String uncheckerMethodNamePrefix,
 			String uncheckerMethodNameSuffix) {
 		if (Exception.class.isAssignableFrom(uncheckedExceptionClass)
@@ -123,7 +123,7 @@ class Generator {
 			String checkedInterfaceName =
 					checkedInterfaceNamePrefix
 					+ samTypeSimpleName
-					+ checkedIntefaceNameSuffix;
+					+ checkedInterfaceNameSuffix;
 			String checkedInterfaceNameWithTypeParams = checkedInterfaceName + samTypeTypeParams;
 			String checkedInterfaceInstanceName =
 					Character.toLowerCase(checkedInterfaceName.charAt(0))
