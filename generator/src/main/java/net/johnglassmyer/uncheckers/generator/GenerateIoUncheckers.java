@@ -25,7 +25,7 @@ public class GenerateIoUncheckers {
 		String uncheckerMethodNameSuffix = "Io";
 
 		String generatedSource = Generator.generate(
-				SamTypes.JAVA_UTIL_FUNCTION_TYPES,
+				SamTypes.STANDARD_SAM_TYPES,
 				checkedExceptionClass,
 				uncheckedExceptionClass,
 				uncheckersPackageName,
