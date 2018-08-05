@@ -46,3 +46,22 @@ Each class defines an interface/method pair corresponding to each of `Runnable`,
 
 The `Generator` class could be used to generate methods to handle other
 exception types and/or other functional types.
+
+### Maven artifact
+
+Contains the generated sources. Available from a repository I'm hosting through my Github:
+
+    <repositories>
+        <repository>
+            <id>johnglassmyer-github-releases</id>
+            <url>https://raw.github.com/JohnGlassmyer/maven-repository/master/releases</url>
+        </repository>
+    </repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>net.johnglassmyer.uncheckers</groupId>
+            <artifactId>uncheckers</artifactId>
+            <version>20180805c</version>
+        </dependency>
+    </dependencies>
