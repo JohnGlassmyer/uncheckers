@@ -88,7 +88,7 @@ class Generator {
 		Set<Class<?>> processedSamTypes = new HashSet<>();
 		Set<String> processedSamTypeSimpleNames = new HashSet<>();
 		for (Class<?> samType : samTypes) {
-			if (processedSamTypes.isEmpty()) {
+			if (!processedSamTypes.isEmpty()) {
 				printStream.println();
 			}
 
