@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.function.Function;
+
 import com.google.common.base.Charsets;
 
 public class GenerateUncheckers {
@@ -18,10 +20,15 @@ public class GenerateUncheckers {
 
 		String uncheckersPackageName = "net.johnglassmyer.uncheckers";
 		String uncheckersEnclosingClassName = "Uncheckers";
-		String checkedInterfaceNamePrefix = "Checked";
-		String checkedIntefaceNameSuffix = "";
-		String uncheckerMethodNamePrefix = "uncheck";
-		String uncheckerMethodNameSuffix = "";
+
+		Function<String, String> samTypeNameToCheckedInterfaceName =
+				name -> String.format("Checked%s", name);
+
+		Function<String, String> samTypeNameToUncheckMethodName =
+				name -> String.format("unchecked%s", name);
+
+		Function<String, String> samTypeNameToCallUncheckedMethodName =
+				name -> String.format("callUnchecked%s", name);
 
 		String generatedSource = Generator.generate(
 				SamTypes.STANDARD_SAM_TYPES,
@@ -29,10 +36,9 @@ public class GenerateUncheckers {
 				uncheckedExceptionClass,
 				uncheckersPackageName,
 				uncheckersEnclosingClassName,
-				checkedInterfaceNamePrefix,
-				checkedIntefaceNameSuffix,
-				uncheckerMethodNamePrefix,
-				uncheckerMethodNameSuffix);
+				samTypeNameToCheckedInterfaceName,
+				samTypeNameToUncheckMethodName,
+				samTypeNameToCallUncheckedMethodName);
 
 		Files.createDirectories(outputPath.getParent());
 		Files.write(outputPath, generatedSource.getBytes(Charsets.UTF_8));
